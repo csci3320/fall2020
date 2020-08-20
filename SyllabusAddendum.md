@@ -28,17 +28,17 @@ Student group assignments will be posted on Canvas.
 ## Student Learning Objectives
 
 ### Understanding Data Structure
-Students will understand the details of the list, stack, queue, tree, heap, and hash-table  data structures.
-Students will be able to discuss different algorithms for sorting these data structures.
-Students will be able to discuss different algorithms for searching within these data structures.
-Students will be familiar with the greedy, dynamic programming, and backtracking problem solving strategies.
-Students will understand when to use each of these data structures to solve programming problems.
+- Students will understand the details of the list, stack, queue, tree, heap, and hash-table  data structures.
+- Students will be able to discuss different algorithms for sorting these data structures.
+- Students will be able to discuss different algorithms for searching within these data structures.
+- Students will be familiar with the greedy, dynamic programming, and backtracking problem solving strategies.
+- Students will understand when to use each of these data structures to solve programming problems.
 
 ### Understanding Computational Complexity
-Students will be familiar efficiency in terms of time and storage space.
-Students will be able to compare algorithms in terms of their computational complexity.
+- Students will be familiar efficiency in terms of time and storage space.
+- Students will be able to compare algorithms in terms of their computational complexity.
 
 ### Implementing Computationally Efficient Data Structures
-Students will write programs that implement several of these data structures.
-Students will write programs that have a low computational complexity.
-Students will write programs using appropriate coding practices.
+- Students will write programs that implement several of these data structures.
+- Students will write programs that have a low computational complexity.
+- Students will write programs using appropriate coding practices.
