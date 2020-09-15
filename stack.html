@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+
+<head>
+  <title></title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+  <div id='app'>
+    <v-app>
+      <v-main>
+        <v-container>
+          <v-row>
+            <v-col>
+              <v-card v-for="(stack,i) in stacks" :key="i" class="ma-2">
+                <v-card-title>
+                  Stack Frame<v-spacer></v-spacer>
+                  <v-btn v-if="i == stacks.length-1" @click="popStack()" icon color="red">
+                    <v-icon>mdi-delete-restore</v-icon>
+                  </v-btn>
+                </v-card-title>
+                <v-simple-table>
+                  <template v-slot:default>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                        <th>Oops</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(row,j) in stack" :key="j">
+                        <td>
+                          <v-text-field v-model="row.name"></v-text-field>
+                        </td>
+                        <td>
+                          <v-text-field v-model="row.type"></v-text-field>
+                        </td>
+                        <td>
+                          <v-text-field v-model="row.value"></v-text-field>
+                        </td>
+                        <td>
+                          <v-btn @click="deleteStackRow(i,j)" icon color="gray">
+                            <v-icon>mdi-delete-outline</v-icon>
+                          </v-btn>
+                        </td>
+                      </tr>
+                      <tr>
+                        <v-btn @click="addStackRow(i)" icon color="blue">
+                          <v-icon>mdi-plus</v-icon>
+                        </v-btn>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-card>
+              <v-card class="ma-2">
+                <v-btn @click="addStack()" icon color="blue">
+                  <v-icon>mdi-plus-box</v-icon>
+                </v-btn>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon color="blue" v-on="on">
+                      <v-icon>mdi-plus-box-multiple</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item v-for="(item, index) in frames" :key="index" @click="addFrame(index)">
+                      <v-list-item-title>{{ item.name }}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-card>
+                <v-card-title>
+                  Heap
+                </v-card-title>
+                <v-simple-table>
+                  <template v-slot:default>
+                    <thead>
+                      <tr>
+                        <th>Address</th>
+                        <th>[Name]</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                        <th>Garbage Collect</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(row,i) in heap" :key="i">
+                        <td>{{row.address}}</td>
+                        <td>
+                          <v-text-field v-model="row.name"></v-text-field>
+                        </td>
+                        <td>
+                          <v-text-field v-model="row.type"></v-text-field>
+                        </td>
+                        <td>
+                          <v-text-field v-model="row.value"></v-text-field>
+                        </td>
+                        <td>
+                          <v-btn @click="deleteHeapRow(i)" icon color="red">
+                            <v-icon>mdi-delete-outline</v-icon>
+                          </v-btn>
+                        </td>
+                      </tr>
+                      <tr>
+                        <v-btn @click="addHeapRow()" icon color="blue">
+                          <v-icon>mdi-plus</v-icon>
+                        </v-btn>
+                        <v-menu offset-y>
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn icon color="blue" v-on="on">
+                              <v-icon>mdi-plus-box-multiple</v-icon>
+                            </v-btn>
+                          </template>
+                          <v-list>
+                            <v-list-item v-for="(item, index) in quickHeap" :key="index" @click="addQuickHeap(index)">
+                              <v-list-item-title>{{ item.name }}</v-list-item-title>
+                            </v-list-item>
+                          </v-list>
+                        </v-menu>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <script src='https://unpkg.com/vue'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+
+  <script>
+
+    const app = new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data: {
+        stacks: [[]],
+        heap: [],
+        quickHeap: [
+          {
+            name: "strings",
+            heap: [
+              { address: 101, type: "String", value: "William, Duke of Cambridge" },
+              { address: 102, type: "String", value: "Diana, Princess of Wales" },
+              { address: 103, type: "String", value: "Charles, Prince of Wales" },
+              { address: 104, type: "String", value: "Queen Elizabeth II" },
+              { address: 105, type: "String", value: "Philip, Duke of Edinburgh" }
+            ]
+          },
+          {
+            name: "Person",
+            heap: [
+              { name:"Person.name", type: "String"},
+              { name:"Person.father", type: "Person"},
+              { name:"Person.mother", type: "Person"},
+            ]
+          },
+          {
+            name:"FamilyTree",
+            heap:[
+              {name:"FamilyTree.root", type:"Person"}
+            ]
+          }
+        ],
+        frames: [
+          {
+            name: "Main.constructor",
+            stack: [
+              { name: "_William", type: "String", value: 101 },
+              { name: "_Diana", type: "String", value: 102 },
+              { name: "_Charles", type: "String", value: 103 },
+              { name: "_Elizabeth", type: "String", value: 104 },
+              { name: "_Philip", type: "String", value: 105 },
+              //{ name: "this", type: "Main", value: "" },
+              { name: "William", type: "Person" },
+              { name: "Diana", type: "Person" },
+              { name: "Charles", type: "Person" },
+              { name: "Elizabeth", type: "Person" },
+              { name: "Philip", type: "Person" },
+              { name: "familyTree", type: "FamilyTree" },
+
+
+            ]
+          },
+          {
+            name: "Person.constructor",
+            stack: [
+              { name: "this", type: "Person", value: "" },
+              { name: "newPerson", type: "String", value: "" }
+            ]
+          },
+          {
+            name:"FamilyTree.constructor",
+            stack:[
+              {name:"this", type:"FamilyTree"},
+              {name:"newRoot", type:"Person"},
+            ]
+          },
+          {
+            name:"FamilyTree.print",
+            stack:[
+              {name:"this", type:"FamilyTree"},
+            ]
+          },
+          {
+            name:"FamilyTree.print(Person)",
+            stack:[
+              {name:"this", type:"FamilyTree"},
+              {name:"person", type:"Person"},
+              {name:"_person.name", type:"String"},
+            ]
+          },
+        ]
+      },
+      methods: {
+        addStack() {
+          this.stacks.push([])
+        },
+        addFrame(i) {
+          this.stacks.push(this.clone(this.frames[i].stack))
+        },
+        addStackRow(i) {
+          this.stacks[i].push({
+            name: "",
+            type: "",
+            value: 0
+          })
+        },
+        popStack() {
+          this.stacks.splice(this.stacks.length - 1, 1);
+        },
+        deleteStackRow(i, j) {
+          this.stacks[i].splice(j, 1);
+        },
+        addQuickHeap(i) {
+          let randomStartAddress = this.randomAddress();
+          for(let x = 0; x < this.quickHeap[i].heap.length; x++){
+            let entry = this.clone(this.quickHeap[i].heap[x]);
+            if(!entry.address)
+              entry.address = randomStartAddress + x;
+            if(!entry.value)
+              entry.value = "?"
+            this.heap.push(entry);
+          }
+          
+        },
+        addHeapRow() {
+          this.heap.push({
+            address: this.randomAddress(),
+            name: "-",
+            type: "",
+            value: "?",
+
+          })
+        },
+        deleteHeapRow(i) {
+          this.heap.splice(i, 1);
+        },
+        randomAddress(){
+          return Math.floor(Math.random() * 10_000);
+        },
+        clone(object){
+          return JSON.parse(JSON.stringify(object));
+        }
+
+      },
+    });
+
+  </script>
+</body>
+
+</html>
