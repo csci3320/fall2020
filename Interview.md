@@ -25,3 +25,23 @@
 - Where are new class instances created (stack or heap)?
 
 - Where are local primitive variables created (stack or heap)?
+
+- What are the two main purposes of using data structures?
+
+- What is the technical definition of Big-O?
+
+- In your own words, how would you describe Big-O?
+
+- Describe the theoretical computer used when caluculating Big-O?
+
+- Order the foolowing Big-Os: O(1), O(log N), O(N), O(n log N), O(N^2), O(2^N)?
+
+- Do we prefer bigger or smaller Big-Os?
+
+- What is the difference between time and space complexity?
+
+- What is a hash table?
+
+- What is a hash function?
+
+- What is the lookup time (Big-O) to find a value in a hash table?
