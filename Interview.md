@@ -28,6 +28,14 @@
 
 - What are the two main purposes of using data structures?
 
+- What is a binary search tree?
+
+- What is the root of a binary search tree?
+
+- What are the leaves of a binary search tree?
+
+- What is an example of something a binary search tree could model?
+
 - What is the technical definition of Big-O?
 
 - In your own words, how would you describe Big-O?
