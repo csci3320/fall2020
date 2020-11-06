@@ -36,6 +36,28 @@
 
 - What is an example of something a binary search tree could model?
 
+- What is the depth of a binary search tree?
+
+- What is a self-balancing data structure?
+
+- What is an AVL tree?
+
+- What is the balancing factor in an AVL  tree?
+
+- What balancing factor values indicate an AVL tree is balanced?
+
+- What balancing factor values indicate an AVL tree is balanced?
+
+- What is a left rotation on an AVL tree?
+
+- What is a right rotation on an AVL tree?
+
+- What is a double roation on as AVL tree?
+
+- When would you need to do a double rotation to keep a AVL tree balanced?
+
+- What properties would an AVL tree have to have to show that it needs a double rotation? 
+
 - What is the technical definition of Big-O?
 
 - In your own words, how would you describe Big-O?
