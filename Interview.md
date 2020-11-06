@@ -75,3 +75,7 @@
 - What is a hash function?
 
 - What is the lookup time (Big-O) to find a value in a hash table?
+
+- What are the role of prime numbers in a hash function?
+
+- Give an example of a hash function (consider java.lang.String)
