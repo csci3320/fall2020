@@ -79,3 +79,9 @@
 - What are the role of prime numbers in a hash function?
 
 - Give an example of a hash function (consider java.lang.String)
+
+- What is separate chaining in a hash table?
+
+- With separate chaining, how big does a hash table have to be to keep look up times O(1)?
+
+- What is rehashing?
