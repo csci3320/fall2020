@@ -85,3 +85,17 @@
 - With separate chaining, how big does a hash table have to be to keep look up times O(1)?
 
 - What is rehashing?
+
+- What is open addressing?
+
+- What are the advantages of open addressing when compared to separate chaining?
+
+- Why is deletion more complicating with open addressing?
+
+- What are some options with open addressing, specifically linear probing?
+
+- What is linear probing?
+
+- What is quadratic probing?
+
+- What is double hashing?
