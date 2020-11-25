@@ -99,3 +99,25 @@
 - What is quadratic probing?
 
 - What is double hashing?
+
+- How would you describe a bubble sort?
+
+- What is the worst-case and average performance of a bubble sort?
+
+- How would you describe a selection sort?
+
+- What is the worst-case and average performance of a selection sort?
+
+- How would you describe an insertion sort?
+
+- What is the worst-case and average performance of an insertion sort?
+
+- How would you describe a merge sort?
+
+- What is the worst-case and average performance of a merge sort?
+
+- How would you describe a quicksort?
+
+- What is the worst-case and average performance of a quicksort?
+
+
